@@ -1,21 +1,20 @@
 # inspired by https://github.com/Originate/guide/blob/master/android/guide/Continuous%20Integration.md
 
 function getAndroidSDK {
-  echo "Android NDK"
-  echo $ANDROID_NDK
-  
   export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
 
   DEPS="$ANDROID_HOME/installed-dependencies"
 
   if [ ! -e $DEPS ]; then
-    echo y | android update sdk -u -a -t android-19 &&
-    echo y | android update sdk -u -a -t platform-tools &&
-    echo y | android update sdk -u -a -t build-tools-21.1.2 &&
-    echo y | android update sdk -u -a -t extra-android-m2repository &&
-    echo y | android update sdk -u -a -t extra-android-support &&
-    echo y | android update sdk -u -a -t extra-google-m2repository &&
-    echo y | android update sdk -u -a -t sys-img-armeabi-v7a-android-19,sys-img-x86_64-android-19 &&
+    echo y | android update sdk --no-ui --all --filter "tools" &&
+    echo y | android update sdk --no-ui --all --filter "platform-tools" &&
+    echo y | android update sdk --no-ui --all --filter "build-tools" &&
+    echo y | android update sdk --no-ui --all --filter "android-19" &&
+    echo y | android update sdk -a --no-ui --filter sys-img-armeabi-v7a-android-19,sys-img-x86_64-android-19 &&
+    echo y | android update sdk --no-ui --all --filter "extra-google-m2repository" &&
+    echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services" &&
+    echo y | android update sdk --no-ui --all --filter "extra-android-support" &&
+    echo y | android update sdk --no-ui --all --filter "extra-android-m2repository" &&
     echo no | android create avd -n testAVD -f -t android-19 --abi default/armeabi-v7a &&
     touch $DEPS
   fi
