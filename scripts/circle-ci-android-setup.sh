@@ -1,6 +1,9 @@
 # inspired by https://github.com/Originate/guide/blob/master/android/guide/Continuous%20Integration.md
 
 function getAndroidSDK {
+  echo "Android NDK"
+  echo $ANDROID_NDK
+  
   export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
 
   DEPS="$ANDROID_HOME/installed-dependencies"
@@ -16,8 +19,6 @@ function getAndroidSDK {
     echo no | android create avd -n testAVD -f -t android-19 --abi default/armeabi-v7a &&
     touch $DEPS
   fi
-  
-  echo $ANDROID_NDK
 }
 
 function waitForAVD {
