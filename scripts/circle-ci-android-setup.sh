@@ -16,6 +16,8 @@ function getAndroidSDK {
     echo no | android create avd -n testAVD -f -t android-19 --abi default/armeabi-v7a &&
     touch $DEPS
   fi
+  
+  echo $ANDROID_NDK
 }
 
 function waitForAVD {
